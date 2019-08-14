@@ -3,18 +3,19 @@ public class Data_Type {
 
 	public static void main(String[] args) {
 		
-		// 10Áø¼ö¸¦ 8Áø¼ö, 16Áø¼ö·Î ¹Ù²Ù±â
-		// int a = 200;
+	    // 10ì§„ìˆ˜ë¥¼ 8ì§„ìˆ˜, 16ì§„ìˆ˜ë¡œ ë°”ê¾¸ê¸°
+	    // int a = 200;
 		
-		// System.out.println("10 Áø¼ö :" + a);
-        // System.out.format("8 Áø¼ö : %o\n", a);
-        // System.out.format("16 Áø¼ö : %x", a);
+	    // System.out.println("10 ì§„ìˆ˜ :" + a);
+            // System.out.format("8 ì§„ìˆ˜ : %o\n", a);
+            // System.out.format("16 ì§„ìˆ˜ : %x", a);
         
 		
-		// StringÀÇ substring ÇÔ¼ö ÇÒ¿ë ÇØº¸±â
+	    // Stringì˜ substring í•¨ìˆ˜ í• ìš© í•´ë³´ê¸°
 		
-		String name = "John Doe";
-		System.out.println(name);
+	    String name = "John Doe";
+	    
+	    System.out.println(name);
 	    System.out.println(name.substring(0, 1));
 	    System.out.println(name.substring(3, 6));
 	    System.out.println(name.substring(5, 8));
