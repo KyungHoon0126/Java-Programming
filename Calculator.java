@@ -1,41 +1,31 @@
-package kr.hs.dgsw.c1.d0506.추상클래스_산술연산;
+package kr.hs.dgsw.c1.d0609;
 
-// 추상 클래스
-public abstract class Calculator {
+import java.util.Scanner;
 
-	protected int value1;
+public abstract class Calculator 
+{
+	public abstract void calculate(int value1, int value2);
 	
-	protected int value2;
-	
-	
-	public void setOperand(int value1, int value2)
+	public void execute()
 	{
-		this.value1 = value1;
-		this.value2 = value2;
-	}
-	
-	// 몸체는 구성하지 않는 추상 메서드
-	public abstract int calculate();
-	
-	public String print()
-	{
-		return String.format("결과 : %d %s %d = %d", value1, getOperator(), value2, calculate());
-	}
-	
-	public abstract String getOperator();
-	
-	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
 		
-		Calculator adder = new Adder();
-		Calculator subtractor = new Subtractor();
-		Calculator multiplier = new Multiplier();
+		while(true)
+		{
+			System.out.println("두 수를 입력하세요.");
+			
+			int value1 = scanner.nextInt();
+			int value2 = scanner.nextInt();
+			
+			if(value1 == 0 && value2 == 0)
+			{
+				break;
+			}
+			
+			calculate(value1, value2);
+		}
 		
-		adder.setOperand(5,  3);
-		subtractor.setOperand(5, 3);
-		multiplier.setOperand(5, 3);
-		
-		System.out.println(adder.print());
-		System.out.println(subtractor.print());
-		System.out.println(multiplier.print());
+		scanner.close();
+		System.out.println("프로그램을 종료합니다.");
 	}
 }
