@@ -12,5 +12,4 @@ public interface Bulletin {
 	
 	// ±Û ¸ñ·Ï
 	public List<Writing> list();
-	
 }
