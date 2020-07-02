@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	
+<script src=
+						"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+	
+	<script>
+		function startTimer()
+		{
+			// setInterval : 500주기 마다 한번씩 함수를 수행, 첫 번째 인자 : 수행할 함수, 두 번째 인자 : 주기
+			setInterval(showTime, 500);
+		}
+	
+		function showTime()
+		{
+			var now = new Date();
+			
+			var year = now.getFullYear();
+			var month = now.getMonth();
+			var day = now.getDate();
+			var hour = now.getHours();
+			var minute = now.getMinutes();
+			var second = now.getSeconds();
+			
+			var str = year + "년 ";
+			str += (month + 1)	 + "월 ";
+			str += day + "일 ";
+			str += hour + "시 ";
+			str += minute + "분 ";
+			str += second + "초";
+			
+			$("#time").html(str);
+		}
+		
+		function addCountry()
+		{
+			var country = $("input[name='country']").val();
+			console.log(country);
+			
+			var liTag = $("<li>" + country + "</li>");
+			$("ul").append(liTag);
+		}
+		
+		function deleteCountry()
+		{
+			$("#nationList").on("click", "li", function()
+					{
+							$(this).siblings().removeClass(); 
+							$(this).addClass("devTrendGroup"); 
+							selectTrendGroup($(this).val());
+					});
+		}
+	</script>
+	
+	<body onload="startTimer();">
+		<h1>DHTML 공부</h1>
+		
+		<p id="time">2020년 6월 24일 10시 39분 20초</p>
+		
+		<div>
+			<input type="text" name="country">
+			<input type="button" value="추가" onclick="addCountry();">
+		</div>
+		
+		<ul id="nationList" class="nationTagList">
+			<li><a href="#" onclick="deleteCountry">대한민국</a></li>
+			<li>중국</li>
+			<li>일본</li>
+			<li>러시아</li>
+			<li>필리핀</li>
+		</ul>
+	</body>
+</html>
