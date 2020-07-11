@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>게시판</title>
+		
+		<style>
+		    table {
+		    	border-collapse: collapse;
+		    }
+		    
+			th, td {
+				border: 1px solid #CCC;
+				padding: 3px;
+				text-align: center;
+			}
+		</style>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
+		<script>
+			
+			// 페이지가 로딩되면 이 함수가 실행됨.
+			$(document).ready(function() {
+					readList();
+					/* readList(function(list) {
+						showList(list);
+					}); */
+			});
+			
+			
+			// function readList(callback)
+			function readList()
+			{
+					/* $.get("/web_study/bbs/list.dgsw", function(response) {
+							callback(response);
+					}); */
+					$.get("/hello/bbs/list.dgsw", null, function(response)
+							{
+									// 우리가 방문할 페이지의 주소, 전달할 값, 호출할 함수
+									showList(response);
+									console.log("readList()" + response);
+							});
+			}
+			
+			function showList(list) 
+			{
+					console.log("showList()" + list);
+					
+					$("#list_body").empty();
+					
+					for(var i in list)
+					{
+							console.log(list[i]);
+							showLine(list[i]);		
+					}
+			}
+			
+			function showLine(data)
+			{
+				var trTag = $("<tr/>");
+				var tdSequence = $("<td/>");
+				var tdTagTitle = $("<td/>");
+				var tdTagView = $("<td/>")
+			
+				var tdTagWriter = $("<td>" + data.writer + "</td>");
+				var aTag = $("<a/>");
+				
+				aTag.html(data.title);
+				aTag.prop("href", "Read.jsp?sequence=" + data.sequence);
+					
+				tdSequence.append(data.sequence);
+				tdTagTitle.append(aTag);
+				tdTagView.append(data.view);
+				
+				trTag.append(tdSequence);
+				trTag.append(tdTagTitle);
+				trTag.append(tdTagWriter);
+				trTag.append(tdTagView);
+				
+				$("#list_body").append(trTag);
+				
+				console.log(data);
+			}
+		</script>
+	</head>
+	
+	<body>
+		<h1>게시판</h1>
+		
+		<div style="text-align: right;">
+				<a href="/hello/bbs/Write.html"><button>글쓰기</button></a>
+		</div>
+		
+		<table style="border-collapse: collapse;">
+			<thead>
+				<tr>
+					<th style="width: 100px;">글 번호</th>
+					<th style="width: 500px;">제목</th>
+					<th style="width: 200px;">글쓴이</th>
+					<th style="width: 100px;">조회수</th>
+				</tr>	
+			</thead>
+			
+			<tbody id="list_body">
+				<tr>
+					<td>코로나 예방</td>
+					<td>보건실선생님</td>
+				</tr>
+				<tr>
+					<td>코로나 예방</td>
+					<td>보건실선생님</td>
+				</tr>
+				<tr>
+					<td>코로나 예방</td>
+					<td>보건실선생님</td>
+				</tr>
+				<tr>
+					<td>코로나 예방</td>
+					<td>보건실선생님</td>
+				</tr>
+				<tr>
+					<td>코로나 예방</td>
+					<td>보건실선생님</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
