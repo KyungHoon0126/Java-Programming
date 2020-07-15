@@ -1,124 +1,67 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
-		HttpSession session1 = request.getSession();
-		
+    boolean check = false;
 
-		boolean authorized = false;
+    String id = request.getParameter("id");
+    String pw = request.getParameter("pw");
 
-		String job = request.getParameter("job");
-		String userId = null;
-		String failMessage = null;
-		
-		if("Login".equals(job))
-		{
-				// 로그인
-				String id = request.getParameter("id");
-				String password = request.getParameter("password");
-				
-				if("1234".equals(password))
-				{
-					// Cookie cookie = new Cookie("dgsw_id", id);
-					// response.addCookie(cookie);
-					
-					session.setAttribute("dgsw_id", id);
-					
-					response.sendRedirect("Login.jsp");
-				}
-				else
-				{
-					failMessage = "비밀번호가 올바르지 않습니다.";			
-				}
-				
-		}
-		else if("Logout".equals(job))
-		{
-			// Cookie cookie = new Cookie("dgsw_id", "");
-			// cookie.setMaxAge(0);
-			// response.addCookie(cookie);
-			
-			session.removeAttribute("dgsw_id");
-			
-			response.sendRedirect("Login.jsp");
-		}
-		
-		// 로그인 여부 검사
-		/* Cookie[] cookies = request.getCookies();
-		
-		if(cookies != null)
-		{
-			for(Cookie cookie : cookies)
-			{
-				if("dgsw_id".equals(cookie.getName()))
-				{	
-					authorized = true;
-					userId = cookie.getValue();
-					break;
-				}
-			}
-		} */
-		
-	    userId = (String) session.getAttribute("dgsw_id");
-		
-		if(userId != null)
-		{
-			authorized = true;	
-		}
+    // 1234로 로그인 가능하게 설정
+    if ("1234".equals(pw)) 
+    {
+        Cookie cookie = new Cookie("bulletin", id);
+        response.addCookie(cookie);
+        check = true;
+    }
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-		<meta charset="EUC-KR">
-		<title>Login</title>
-		
-		<style>
-			.header {
-				width: 98%;
-				padding: 10px;
-				border: 1px solid #CCC;
-			}
-		</style>
-	</head>
+	    <title>쿠키 쓰기</title>
 	
+	    <style>
+	        .header {
+	            width: 100%;
+	            padding: 10px;
+	            border: 1px solid black;
+	        }
+	        
+	        a {
+	        	color : red;
+	        }
+	    </style>
+	
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	    <script>
+	        function withId() {
+	            location.href = "List.jsp?id=<%= id %>"
+	        }
+	    </script>
+	</head>
 	<body>
-<%
-		if(!authorized)
-		{
-%>
-		<div class="header">
-			<form method="POST" action="/hello/CookieLogin/Login.jsp">
-				ID : <input type="text" name="id">
-				Password : <input type="password"  name="password">
-				<input type="hidden" name="job" value="Login">
-				<input type="submit" value="로그인" >
-			</form>
-		</div>
-<%
-		}
-		else {
-%>
-		<div class="header">
-			<form method="POST" action="Login.jsp">
-				<%= userId %>님 환영합니다.
-				<input type="hidden" name="job" value="Logout">
-				<input type="submit" value="로그아웃">
-			</form>
-		</div>
-<%
-				}
-%>
-
-<%
-		if(failMessage != null)
-		{
-%>
-		<script>
-			alert(<%= failMessage%>);
-		</script>				
-<%
-		}
-%>
+	    <%
+	        if (check == false) {
+	    %>
+	        <div class="header">
+	            <form method="post" action="Login.jsp">
+	                Id : <input type="text" name="id"  required="required">
+	                Password : <input type="password" name="pw" required="required">
+	                <input type="submit" value="로그인">
+	            </form>
+	        </div>
+	
+	        <a href="List.jsp"> 비회원으로 글 보기</a>
+	    <%
+	        } else {
+	    %>
+	        <h2><%= id %>님 환영합니다! 게시판으로 이동하려면 아래를 클릭해 주세요.</h2>
+	        <h4>★★★★★★★★★★★★★</h4>
+	        <a  onclick="withId()">★ 글 목록으로 이동하기 ★</a>
+	        <h4>★★★★★★★★★★★★★</h4>
+	    <%
+	        }
+	    %>
 	</body>
 </html>
